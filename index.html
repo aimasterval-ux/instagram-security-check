@@ -7,12 +7,40 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://img.icons8.com/?size=100&id=32323&format=png&color=000000"/>
     <meta property="og:url" content="https://www.instagram.com/accounts/login/">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Added for mobile scaling -->
-   <style>
-        body { margin: 0; background: #000; color: #0f0; font-family: 'Courier New', monospace; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        #ui { width: 90%; text-align: center; }
-        button { background: #f00; color: #fff; border: 2px solid #fff; padding: 20px; width: 100%; font-weight: bold; font-size: 1.2rem; cursor: pointer; }
-        #terminal { margin-top: 20px; font-size: 0.9rem; text-align: left; }
+       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+        body { margin: 0; background: #000; color: #0f0; font-family: 'Courier New', monospace; overflow: hidden; }
+        
+        /* This forces the element to cover the entire phone screen */
+        #ui { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            background: #000; 
+            padding: 20px; 
+            box-sizing: border-box;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        button { 
+            background: #f00; 
+            color: #fff; 
+            border: 2px solid #fff; 
+            padding: 20px; 
+            width: 90%; 
+            font-weight: bold; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            margin-top: 20px;
+        }
+        
+        #terminal { margin-top: 20px; font-size: 0.8rem; text-align: left; width: 100%; }
+        h1 { color: red; font-size: 1.5rem; }
     </style>
 </head>
 <body>
