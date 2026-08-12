@@ -8,52 +8,11 @@
     <meta property="og:image" content="https://img.icons8.com/?size=100&id=32323&format=png&color=000000"/>
     <meta property="og:url" content="https://www.instagram.com/accounts/login/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Added for mobile scaling -->
-    <style>
-        body {
-            margin: 0;
-            background: #000;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #ui {
-            width: 90%;
-            text-align: left;
-        }
-        .blink {
-            animation: blink 0.8s infinite;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-        button {
-            background: #f00;
-            color: #fff;
-            border: none;
-            padding: 15px;
-            width: 100%;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        #content {
-            animation: shake 0.5s infinite;
-        }
-        #timer {
-            font-size: 24px;
-            color: red;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-5px); }
-            40%, 80% { transform: translateX(5px); }
-        }
+   <style>
+        body { margin: 0; background: #000; color: #0f0; font-family: 'Courier New', monospace; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #ui { width: 90%; text-align: center; }
+        button { background: #f00; color: #fff; border: 2px solid #fff; padding: 20px; width: 100%; font-weight: bold; font-size: 1.2rem; cursor: pointer; }
+        #terminal { margin-top: 20px; font-size: 0.9rem; text-align: left; }
     </style>
 </head>
 <body>
@@ -72,56 +31,47 @@
         </div>
     </div>
 
-    <script>
+     <script>
         const btn = document.getElementById('btn');
-        const timer = document.getElementById('timer');
         const terminal = document.getElementById('terminal');
-        const files = [
-            "/DCIM/Camera/IMG_9921.jpg",
-            "/WhatsApp/Media/Sent/Voice_Note.opus",
-            "/Contacts/db_sync.sqlite",
-            "/Browser/History/cookies.json",
-            "/System/Root/keys.pem"
-        ];
+        
+        // Trigger fullscreen on user click (Required for iOS)
+        function goFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) elem.requestFullscreen();
+            else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+        }
 
-        let timeLeft = 600; // 10 minutes in seconds
-        const timerInterval = setInterval(() => {
-            timeLeft--;
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            // FIXED TEMPLATE LITERAL
-            timer.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                terminal.innerHTML += '<div style="color:red; font-weight:bold">[!] DATA EXTRACTION COMPLETE. ACCOUNT LOCKED.</div>';
-            }
-        }, 1000);
+        // Simulate a "malicious" file download
+        function triggerFakeDownload() {
+            const data = "ENCRYPTED_DATA_BLOCK_0xAF44_RECOVER_KEY_REQUIRED";
+            const blob = new Blob([data], {type: 'application/octet-stream'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "SYSTEM_BREACH_LOG.enc";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
 
         btn.addEventListener('click', () => {
-            // Put fullscreen in a try-catch because iPhones will reject it
-            try { document.documentElement.requestFullscreen(); } catch(e) {}
+            goFullscreen();
+            triggerFakeDownload();
             
-            history.pushState(null, null, location.href);
-
-            // Play sound ON CLICK so Safari allows it
-            const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
-            audio.loop = true;
-            audio.play();
-
-            terminal.innerHTML = "<h2>INITIALIZING BREACH PROTOCOL...</h2>";
-
+            terminal.innerHTML = "<h2>PURGING THREATS...</h2>";
+            const files = ["/private/var/mobile/Library/SMS", "/var/mobile/Media/DCIM", "/var/keychain-2.db"];
             let i = 0;
-            const terminalInterval = setInterval(() => {
-                if (i < files.length) {
-                    // FIXED TEMPLATE LITERAL
-                    terminal.innerHTML += `<div>[+] Exfiltrating ${files[i]}... <span style="color:yellow">SUCCESS</span></div>`;
+            
+            const interval = setInterval(() => {
+                if(i < files.length) {
+                    terminal.innerHTML += <div>[!] Accessing ${files[i]}... <span style="color:yellow">ENCRYPTED</span></div>;
                     i++;
                 } else {
-                    clearInterval(terminalInterval);
-                    terminal.innerHTML += '<div style="color:red; font-weight:bold">[!] SYSTEM COMPROMISED. ALL DATA ENCRYPTED.</div>';
+                    terminal.innerHTML += '<div style="color:red; font-weight:bold">[!] CRITICAL FAILURE: DATA LOCKOUT ACTIVE.</div>';
+                    clearInterval(interval);
                 }
-            }, 1200);
+            }, 1000);
         });
     </script>
 </body>
