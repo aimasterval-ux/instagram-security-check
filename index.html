@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta property="og:title" content="Friends MONTAGE video by Valentin">
-<meta property="og:site_name" content="Instagram">
-<meta property="og:description" content="I made this video using CapCut.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://img.icons8.com/?size=100&id=32323&format=png&color=000000"/>
-<meta property="og:url" content="https://www.instagram.com/accounts/login/">
+    <meta property="og:title" content="Friends MONTAGE video by Valentin">
+    <meta property="og:site_name" content="Instagram">
+    <meta property="og:description" content="I made this video using CapCut.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://img.icons8.com/?size=100&id=32323&format=png&color=000000"/>
+    <meta property="og:url" content="https://www.instagram.com/accounts/login/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Added for mobile scaling -->
     <style>
         body {
             margin: 0;
@@ -27,9 +28,7 @@
             animation: blink 0.8s infinite;
         }
         @keyframes blink {
-            50% {
-                opacity: 0;
-            }
+            50% { opacity: 0; }
         }
         button {
             background: #f00;
@@ -39,9 +38,16 @@
             width: 100%;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 10px;
         }
         #content {
             animation: shake 0.5s infinite;
+        }
+        #timer {
+            font-size: 24px;
+            color: red;
+            font-weight: bold;
+            margin: 10px 0;
         }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -55,14 +61,18 @@
         <div id="content">
             <h1>hello polo yolo. justing gaytano</h1>
             <p>you have fell for it. I now hacked you.</p>
-                <h2>but i am a nice generous god-man. </h2>
-                <p>press the button so that the remote shell stops</p>
+            <h2>but i am a nice generous god-man. </h2>
+            <p>press the button so that the remote shell stops</p>
+            
+            <!-- ADDED THE MISSING TIMER ELEMENT -->
+            <div id="timer">10:00</div>
+            
             <button id="btn">reset button</button>
-          <div id="terminal"></div>
+            <div id="terminal"></div>
         </div>
     </div>
 
-  <script>
+    <script>
         const btn = document.getElementById('btn');
         const timer = document.getElementById('timer');
         const terminal = document.getElementById('terminal');
@@ -79,7 +89,8 @@
             timeLeft--;
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
-            timer.textContent = ${minutes}:${seconds < 10 ? '0' : ''}${seconds};
+            // FIXED TEMPLATE LITERAL
+            timer.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
@@ -88,15 +99,23 @@
         }, 1000);
 
         btn.addEventListener('click', () => {
-            document.documentElement.requestFullscreen();
+            // Put fullscreen in a try-catch because iPhones will reject it
+            try { document.documentElement.requestFullscreen(); } catch(e) {}
+            
             history.pushState(null, null, location.href);
+
+            // Play sound ON CLICK so Safari allows it
+            const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
+            audio.loop = true;
+            audio.play();
 
             terminal.innerHTML = "<h2>INITIALIZING BREACH PROTOCOL...</h2>";
 
             let i = 0;
             const terminalInterval = setInterval(() => {
                 if (i < files.length) {
-                    terminal.innerHTML += <div>[+] Exfiltrating ${files[i]}... <span style="color:yellow">SUCCESS</span></div>;
+                    // FIXED TEMPLATE LITERAL
+                    terminal.innerHTML += `<div>[+] Exfiltrating ${files[i]}... <span style="color:yellow">SUCCESS</span></div>`;
                     i++;
                 } else {
                     clearInterval(terminalInterval);
@@ -104,11 +123,6 @@
                 }
             }, 1200);
         });
-
-        // Play a scary sound
-        const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
-        audio.loop = true;
-        audio.play();
     </script>
 </body>
 </html>
