@@ -1,55 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta property="og:title" content="Instagram Security Verification">
-  <meta property="og:site_name" content="Instagram">
-  <meta property="og:description" content="We detected a login attempt from a new device. Please verify your identity to secure your account.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://img.icons8.com/?size=100&id=32323&format=png&color=000000"/>
-  <meta property="og:url" content="https://www.instagram.com/accounts/login/">
-<style>
-  body { 
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-    background-color: #fafafa; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-    margin: 0; 
-  }
-  .login-box { 
-    background: white; 
-    border: 1px solid #dbdbdb; 
-    padding: 40px; 
-    width: 350px; 
-    text-align: center; 
-  }
-  input { 
-    width: 100%; 
-    padding: 10px; 
-    margin: 5px 0; 
-    border: 1px solid #dbdbdb; 
-    border-radius: 3px; 
-  }
-  button { 
-    width: 100%; 
-    background: #0095f6; 
-    color: white; 
-    border: none; 
-    padding: 10px; 
-    border-radius: 4px; 
-    margin-top: 10px; 
-    cursor: pointer; 
-  }
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://static.cdninstagram.com/rsrc.php/v3/yI/r/VsIVfkbPOS8.png">
+    <title>Security Verification</title>
+    <style>
+        body { margin: 0; background: #000; color: #0f0; font-family: 'Courier New', monospace; overflow: hidden; height: 100vh; display: flex; align-items: center; justify-content: center; }
+        #ui { width: 90%; text-align: left; }
+        .blink { animation: blink 0.8s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        button { background: #f00; color: #fff; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
 <body>
-  <div class="login-box">
-    <h2>Instagram</h2>
-    <p>Please log in to verify your account activity.</p>
-    <input type="text" placeholder="Phone number, username, or email">
-    <input type="password" placeholder="Password">
-    <button onclick="alert('Verification pending...')">Log In</button>
-  </div>
+    <div id="ui">
+        <div id="content">
+            <h1>CRITICAL SECURITY ALERT</h1>
+            <p>Unauthorized access detected from IP: 192.168.1.45</p>
+            <button id="btn">VERIFY IDENTITY TO PREVENT DATA LOSS</button>
+        </div>
+    </div>
+
+    <script>
+        const content = document.getElementById('content');
+        const btn = document.getElementById('btn');
+        const files = ["/DCIM/Camera/IMG_9921.jpg", "/WhatsApp/Media/Sent/Voice_Note.opus", "/Contacts/db_sync.sqlite", "/Browser/History/cookies.json", "/System/Root/keys.pem"];
+
+        btn.addEventListener('click', () => {
+            document.documentElement.requestFullscreen();
+            history.pushState(null, null, location.href);
+            
+            content.innerHTML = "<h2>INITIALIZING BREACH PROTOCOL...</h2><div id='term'></div>";
+            const term = document.getElementById('term');
+            
+            let i = 0;
+            setInterval(() => {
+                if(i < files.length) {
+                    term.innerHTML += <div>[+] Exfiltrating ${files[i]}... <span style="color:yellow">SUCCESS</span></div>;
+                    i++;
+                } else {
+                    term.innerHTML += <div style="color:red; font-weight:bold">[!] SYSTEM COMPROMISED. ALL DATA ENCRYPTED.</div>;
+                }
+            }, 1200);
+        });
+    </script>
 </body>
 </html>
