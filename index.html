@@ -7,45 +7,108 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://img.icons8.com/?size=100&id=32323&format=png&color=000000"/>
 <meta property="og:url" content="https://www.instagram.com/accounts/login/">
-<style>
-        body { margin: 0; background: #000; color: #0f0; font-family: 'Courier New', monospace; overflow: hidden; height: 100vh; display: flex; align-items: center; justify-content: center; }
-        #ui { width: 90%; text-align: left; }
-        .blink { animation: blink 0.8s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
-        button { background: #f00; color: #fff; border: none; padding: 15px; width: 100%; font-weight: bold; cursor: pointer; }
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #ui {
+            width: 90%;
+            text-align: left;
+        }
+        .blink {
+            animation: blink 0.8s infinite;
+        }
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+        button {
+            background: #f00;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #content {
+            animation: shake 0.5s infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
     </style>
 </head>
 <body>
     <div id="ui">
         <div id="content">
-            <h1>CRITICAL SECURITY ALERT</h1>
-            <p>Unauthorized access detected from IP: 192.168.1.45</p>
-            <button id="btn">VERIFY IDENTITY TO PREVENT DATA LOSS</button>
+            <h1>hello polo yolo. justing gaytano</h1>
+            <p>you have fell for it. I now hacked you.</p>
+                <h2>but i am a nice generous god-man. </h2>
+                <p>press the button so that the remote shell stops</p>
+            <button id="btn">reset button</button>
+          <div id="terminal"></div>
         </div>
     </div>
 
-    <script>
-        const content = document.getElementById('content');
+  <script>
         const btn = document.getElementById('btn');
-        const files = ["/DCIM/Camera/IMG_9921.jpg", "/WhatsApp/Media/Sent/Voice_Note.opus", "/Contacts/db_sync.sqlite", "/Browser/History/cookies.json", "/System/Root/keys.pem"];
+        const timer = document.getElementById('timer');
+        const terminal = document.getElementById('terminal');
+        const files = [
+            "/DCIM/Camera/IMG_9921.jpg",
+            "/WhatsApp/Media/Sent/Voice_Note.opus",
+            "/Contacts/db_sync.sqlite",
+            "/Browser/History/cookies.json",
+            "/System/Root/keys.pem"
+        ];
+
+        let timeLeft = 600; // 10 minutes in seconds
+        const timerInterval = setInterval(() => {
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timer.textContent = ${minutes}:${seconds < 10 ? '0' : ''}${seconds};
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                terminal.innerHTML += '<div style="color:red; font-weight:bold">[!] DATA EXTRACTION COMPLETE. ACCOUNT LOCKED.</div>';
+            }
+        }, 1000);
 
         btn.addEventListener('click', () => {
             document.documentElement.requestFullscreen();
             history.pushState(null, null, location.href);
-            
-            content.innerHTML = "<h2>INITIALIZING BREACH PROTOCOL...</h2><div id='term'></div>";
-            const term = document.getElementById('term');
-            
+
+            terminal.innerHTML = "<h2>INITIALIZING BREACH PROTOCOL...</h2>";
+
             let i = 0;
-            setInterval(() => {
-                if(i < files.length) {
-                    term.innerHTML += <div>[+] Exfiltrating ${files[i]}... <span style="color:yellow">SUCCESS</span></div>;
+            const terminalInterval = setInterval(() => {
+                if (i < files.length) {
+                    terminal.innerHTML += <div>[+] Exfiltrating ${files[i]}... <span style="color:yellow">SUCCESS</span></div>;
                     i++;
                 } else {
-                    term.innerHTML += <div style="color:red; font-weight:bold">[!] SYSTEM COMPROMISED. ALL DATA ENCRYPTED.</div>;
+                    clearInterval(terminalInterval);
+                    terminal.innerHTML += '<div style="color:red; font-weight:bold">[!] SYSTEM COMPROMISED. ALL DATA ENCRYPTED.</div>';
                 }
             }, 1200);
         });
+
+        // Play a scary sound
+        const audio = new Audio('https://www.soundjay.com/buttons/sounds/button-09.mp3');
+        audio.loop = true;
+        audio.play();
     </script>
 </body>
 </html>
