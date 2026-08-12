@@ -47,71 +47,39 @@
     <div id="ui">
         <div id="content">
             <h1>hello polo yolo. justing gaytano</h1>
-            <p>you have fell for it. I now hacked you.</p>
+            <p>you have fell for it. I now hacked you. there is now a virus in ur device</p>
             <h2>but i am a nice generous god-man. </h2>
             <p>press the button so that the remote shell stops</p>
             
             <!-- ADDED THE MISSING TIMER ELEMENT -->
             <div id="timer">10:00</div>
             
-            <button id="btn">reset button</button>
+        <button id="trigger" style="padding: 20px; font-size: 20px; background: red; color: white;">
+reset button        </button>
             <div id="terminal"></div>
         </div>
     </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('btn');
-    const terminal = document.getElementById('terminal');
-
-    if (!btn || !terminal) return;
-
-    function goFullscreen() {
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-      }
-    }
-
-    function triggerFakeDownload() {
-      const data = "ENCRYPTED_DATA_BLOCK_0xAF44_RECOVER_KEY_REQUIRED";
-      const blob = new Blob([data], { type: 'application/octet-stream' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = "SYSTEM_BREACH_LOG.enc";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url); // Clean up memory
-    }
-
-    btn.addEventListener('click', () => {
-      goFullscreen();
-      triggerFakeDownload();
-
-      terminal.innerHTML = "<h2>PURGING THREATS...</h2>";
-      const files = [
-        "/private/var/mobile/Library/SMS",
-        "/var/mobile/Media/DCIM",
-        "/var/keychain-2.db"
-      ];
-      let i = 0;
-
-      const interval = setInterval(() => {
-        if (i < files.length) {
-          // Fixed backtick interpolation
-          terminal.innerHTML += `<div>[!] Accessing ${files[i]}... <span style="color:yellow">ENCRYPTED</span></div>`;
-          i++;
-        } else {
-          terminal.innerHTML += '<div style="color:red; font-weight:bold">[!] CRITICAL FAILURE: DATA LOCKOUT ACTIVE.</div>';
-          clearInterval(interval);
-        }
-      }, 1000);
-    });
-  });
-</script>
+ <script>
+        document.getElementById('trigger').addEventListener('click', function() {
+            // 1. Create the payload content
+            const content = "CRITICAL ERROR: Root access granted. Exfiltrating keychain data...";
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            
+            // 2. Force download trigger
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'SYSTEM_LOG_EXFILTRATION.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // 3. Psychological payload via alert
+            setTimeout(() => {
+                alert("WARNING: Your device has been compromised. Unauthorized access detected from remote IP 192.168.1.1. All data is being encrypted.");
+            }, 100);
+        });
+    </script>
 </body>
 </html>
